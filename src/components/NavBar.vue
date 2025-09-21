@@ -111,6 +111,8 @@
               }}</span>
             </button>
           </div>
+
+          <!-- 用户菜单 -->
           <div class="user-menu" @mouseenter="showUserMenu = true" @mouseleave="showUserMenu = false">
             <button class="user-trigger">
               <img :src="user.avatar" :alt="user.username" class="user-avatar" />
