@@ -1,0 +1,327 @@
+// 图标字体样式
+// 这里使用 Unicode 字符作为图标，实际项目中可以使用 Font Awesome、Heroicons 等图标库
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'iconfont' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 使用 Unicode 字符作为图标
+.icon-film::before { content: "🎬"; }
+.icon-tv::before { content: "📺"; }
+.icon-anime::before { content: "🎌"; }
+.icon-variety::before { content: "🎭"; }
+.icon-home::before { content: "🏠"; }
+.icon-forum::before { content: "💬"; }
+.icon-category::before { content: "📂"; }
+.icon-search::before { content: "🔍"; }
+.icon-user::before { content: "👤"; }
+.icon-edit::before { content: "✏️"; }
+.icon-logout::before { content: "🚪"; }
+.icon-arrow-down::before { content: "⬇️"; }
+.icon-arrow-up::before { content: "⬆️"; }
+.icon-arrow-left::before { content: "⬅️"; }
+.icon-arrow-right::before { content: "➡️"; }
+.icon-menu::before { content: "☰"; }
+.icon-close::before { content: "✕"; }
+.icon-plus::before { content: "+"; }
+.icon-eye::before { content: "👁"; }
+.icon-eye-off::before { content: "🙈"; }
+.icon-comment::before { content: "💬"; }
+.icon-like::before { content: "❤️"; }
+.icon-share::before { content: "📤"; }
+.icon-bookmark::before { content: "🔖"; }
+.icon-play::before { content: "▶️"; }
+.icon-star::before { content: "⭐"; }
+.icon-users::before { content: "👥"; }
+.icon-trophy::before { content: "🏆"; }
+.icon-calendar::before { content: "📅"; }
+.icon-location::before { content: "📍"; }
+.icon-link::before { content: "🔗"; }
+.icon-camera::before { content: "📷"; }
+.icon-reply::before { content: "↩️"; }
+.icon-empty::before { content: "📭"; }
+.icon-weibo::before { content: "📱"; }
+.icon-wechat::before { content: "💬"; }
+.icon-qq::before { content: "🐧"; }
+.icon-github::before { content: "🐙"; }
+.icon-bell::before { content: "🔔"; }
+.icon-settings::before { content: "⚙️"; }
+.icon-orange::before { content: "🍊"; }
+.icon-tangerine::before { content: "🍊"; }
+
+// 图标大小变体
+.icon-xs {
+  font-size: 0.75rem;
+}
+
+.icon-sm {
+  font-size: 0.875rem;
+}
+
+.icon-md {
+  font-size: 1rem;
+}
+
+.icon-lg {
+  font-size: 1.25rem;
+}
+
+.icon-xl {
+  font-size: 1.5rem;
+}
+
+.icon-2xl {
+  font-size: 2rem;
+}
+
+.icon-3xl {
+  font-size: 3rem;
+}
+
+// 图标颜色变体
+.icon-primary {
+  color: #3b82f6;
+}
+
+.icon-secondary {
+  color: #6b7280;
+}
+
+.icon-success {
+  color: #10b981;
+}
+
+.icon-warning {
+  color: #f59e0b;
+}
+
+.icon-error {
+  color: #ef4444;
+}
+
+.icon-white {
+  color: #ffffff;
+}
+
+.icon-gray {
+  color: #9ca3af;
+}
+
+// 图标状态
+.icon-active {
+  color: #3b82f6;
+}
+
+.icon-inactive {
+  color: #d1d5db;
+}
+
+.icon-hover:hover {
+  color: #3b82f6;
+  transition: color 0.2s ease;
+}
+
+// 旋转动画
+.icon-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.icon-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.icon-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.icon-flip-horizontal {
+  transform: scaleX(-1);
+}
+
+.icon-flip-vertical {
+  transform: scaleY(-1);
+}
+
+// 脉冲动画
+.icon-pulse {
+  animation: icon-pulse 2s infinite;
+}
+
+@keyframes icon-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+// 摇摆动画
+.icon-wobble {
+  animation: icon-wobble 1s ease-in-out;
+}
+
+@keyframes icon-wobble {
+  0% { transform: translateX(0%); }
+  15% { transform: translateX(-25%) rotate(-5deg); }
+  30% { transform: translateX(20%) rotate(3deg); }
+  45% { transform: translateX(-15%) rotate(-3deg); }
+  60% { transform: translateX(10%) rotate(2deg); }
+  75% { transform: translateX(-5%) rotate(-1deg); }
+  100% { transform: translateX(0%); }
+}
+
+// 弹跳动画
+.icon-bounce {
+  animation: icon-bounce 1s infinite;
+}
+
+@keyframes icon-bounce {
+  0%, 20%, 53%, 80%, 100% {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+    transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -8px, 0);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+    transform: translate3d(0, -4px, 0);
+  }
+  90% {
+    transform: translate3d(0,-2px,0);
+  }
+}
+
+// 闪烁动画
+.icon-blink {
+  animation: icon-blink 1s infinite;
+}
+
+@keyframes icon-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+// 图标组合
+.icon-stack {
+  position: relative;
+  display: inline-block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  vertical-align: middle;
+}
+
+.icon-stack-1x,
+.icon-stack-2x {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.icon-stack-1x {
+  line-height: inherit;
+}
+
+.icon-stack-2x {
+  font-size: 2em;
+}
+
+.icon-stack .icon-stack-1x {
+  line-height: 2em;
+}
+
+.icon-stack .icon-stack-2x {
+  line-height: 1em;
+}
+
+// 图标列表
+.icon-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.icon-list li {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.icon-list li:last-child {
+  border-bottom: none;
+}
+
+.icon-list .icon {
+  margin-right: 0.75rem;
+  width: 1.25rem;
+  text-align: center;
+}
+
+// 响应式图标
+@media (max-width: 768px) {
+  .icon-responsive {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .icon-responsive {
+    font-size: 0.75rem;
+  }
+}
+
+// 深色模式图标
+@media (prefers-color-scheme: dark) {
+  .icon-dark {
+    color: #f9fafb;
+  }
+  
+  .icon-dark-secondary {
+    color: #d1d5db;
+  }
+}
+
+// 高对比度模式图标
+@media (prefers-contrast: high) {
+  .icon-high-contrast {
+    color: #000000;
+    text-shadow: 1px 1px 0 #ffffff;
+  }
+}
+
+// 减少动画模式
+@media (prefers-reduced-motion: reduce) {
+  .icon-pulse,
+  .icon-wobble,
+  .icon-bounce,
+  .icon-blink {
+    animation: none;
+  }
+  
+  .icon-rotate-90,
+  .icon-rotate-180,
+  .icon-rotate-270,
+  .icon-flip-horizontal,
+  .icon-flip-vertical {
+    transform: none;
+  }
+}
