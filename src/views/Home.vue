@@ -310,9 +310,6 @@ const latestMovies = ref([
   }
 ])
 
-//假设网络请求完成
-//lastmovie.value = res.data
-
 const stats = ref({
   totalUsers: 125678,
   totalPosts: 45678,

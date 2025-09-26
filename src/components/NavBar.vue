@@ -17,8 +17,13 @@
       <!-- 搜索区域 -->
       <div class="navbar-search">
         <div class="search-container">
-          <input v-model="searchQuery" @keyup.enter="handleSearch" type="text" placeholder="搜索电影、电视剧、动漫..."
-            class="search-input" />
+          <input 
+            v-model="searchQuery" 
+            @keyup.enter="handleSearch"
+            type="text" 
+            placeholder="搜索电影、电视剧、动漫..."
+            class="search-input"
+          />
           <button @click="handleSearch" class="search-btn">
             <i class="icon-search"></i>
           </button>
@@ -31,12 +36,12 @@
           <i class="nav-icon icon-home"></i>
           <span class="nav-text">首页</span>
         </router-link>
-
+        
         <router-link to="/forum" class="nav-item" :class="{ active: $route.name === 'Forum' }">
           <i class="nav-icon icon-forum"></i>
           <span class="nav-text">论坛</span>
         </router-link>
-
+        
         <div class="nav-dropdown" @mouseenter="showDropdown = true" @mouseleave="showDropdown = false">
           <button class="nav-item dropdown-trigger">
             <i class="nav-icon icon-category"></i>
@@ -81,7 +86,7 @@
             </div>
           </div>
         </div>
-
+        
         <router-link to="/trending" class="nav-item">
           <i class="nav-icon icon-star"></i>
           <span class="nav-text">热门</span>
@@ -100,18 +105,16 @@
             <span>注册</span>
           </router-link>
         </div>
-
+        
         <div v-else class="user-section">
           <!-- 通知按钮 -->
           <div class="notification-wrapper">
             <button class="notification-btn" @click="toggleNotifications">
               <i class="icon-bell"></i>
-              <span v-if="unreadCount > 0" class="notification-badge">{{
-                unreadCount
-              }}</span>
+              <span v-if="unreadCount > 0" class="notification-badge">{{ unreadCount }}</span>
             </button>
           </div>
-
+          
           <!-- 用户菜单 -->
           <div class="user-menu" @mouseenter="showUserMenu = true" @mouseleave="showUserMenu = false">
             <button class="user-trigger">
@@ -122,7 +125,7 @@
               </div>
               <i class="user-arrow icon-arrow-down" :class="{ rotated: showUserMenu }"></i>
             </button>
-
+            
             <div class="user-dropdown" :class="{ show: showUserMenu }">
               <div class="user-profile">
                 <img :src="user.avatar" :alt="user.username" class="profile-avatar" />
@@ -158,57 +161,53 @@
           </div>
         </div>
       </div>
+
+
     </div>
+
+
   </nav>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user";
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useUserStore } from '../stores/user'
 
-const router = useRouter();
-const userStore = useUserStore();
+const router = useRouter()
+const userStore = useUserStore()
 
 // 响应式数据
-const searchQuery = ref("");
-const mobileMenuOpen = ref(false);
-const showDropdown = ref(false);
-const showUserMenu = ref(false);
-const unreadCount = ref(3);
+const searchQuery = ref('')
+const showDropdown = ref(false)
+const showUserMenu = ref(false)
+const unreadCount = ref(3)
 
 // 计算属性
-const isLoggedIn = computed(() => userStore.isLoggedIn);
-const user = computed(() => userStore.user);
+const isLoggedIn = computed(() => userStore.isLoggedIn)
+const user = computed(() => userStore.user)
 
 // 方法
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
     router.push({
-      name: "Forum",
-      query: { search: searchQuery.value },
-    });
+      name: 'Forum',
+      query: { search: searchQuery.value }
+    })
   }
-};
+}
 
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value;
-};
-
-const closeMobileMenu = () => {
-  mobileMenuOpen.value = false;
-};
 
 const toggleNotifications = () => {
-  console.log("切换通知面板");
-  unreadCount.value = 0;
-};
+  console.log('切换通知面板')
+  unreadCount.value = 0
+}
 
 const handleLogout = () => {
-  userStore.logout();
-  router.push("/");
-  showUserMenu.value = false;
-};
+  userStore.logout()
+  router.push('/')
+  showUserMenu.value = false
+}
 </script>
 
 <style lang="scss" scoped>
@@ -247,7 +246,7 @@ const handleLogout = () => {
   flex-shrink: 0;
   display: block;
   visibility: visible;
-
+  
   .brand-link {
     display: flex;
     align-items: center;
@@ -255,39 +254,37 @@ const handleLogout = () => {
     text-decoration: none;
     color: #1f2937;
     transition: all 0.3s ease;
-
+    
     &:hover {
       transform: translateY(-2px);
     }
-
+    
     .brand-icon {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg,
-          var(--primary-color),
-          var(--secondary-color));
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
       transition: all 0.3s ease;
-
+      
       &:hover {
         transform: scale(1.05);
         box-shadow: 0 12px 28px rgba(249, 115, 22, 0.4);
       }
-
+      
       .icon-film {
         font-size: 22px;
         color: white;
       }
     }
-
+    
     .brand-text {
       display: flex;
       flex-direction: column;
-
+      
       .brand-name {
         font-weight: 700;
         font-size: 20px;
@@ -295,7 +292,7 @@ const handleLogout = () => {
         color: #1f2937;
         letter-spacing: -0.5px;
       }
-
+      
       .brand-tagline {
         font-size: 11px;
         color: #6b7280;
@@ -315,7 +312,7 @@ const handleLogout = () => {
   min-width: 0;
   display: block;
   visibility: visible;
-
+  
   .search-container {
     position: relative;
     display: flex;
@@ -324,13 +321,13 @@ const handleLogout = () => {
     border: 2px solid transparent;
     border-radius: 12px;
     transition: all 0.3s ease;
-
+    
     &:focus-within {
       background: white;
       border-color: var(--primary-color);
       box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
     }
-
+    
     .search-input {
       flex: 1;
       padding: 12px 16px;
@@ -339,12 +336,12 @@ const handleLogout = () => {
       font-size: 14px;
       color: #374151;
       outline: none;
-
+      
       &::placeholder {
         color: #9ca3af;
       }
     }
-
+    
     .search-btn {
       padding: 12px 16px;
       background: var(--primary-color);
@@ -353,12 +350,12 @@ const handleLogout = () => {
       border-radius: 0 10px 10px 0;
       cursor: pointer;
       transition: all 0.3s ease;
-
+      
       &:hover {
         background: var(--primary-dark);
         transform: scale(1.05);
       }
-
+      
       i {
         font-size: 16px;
       }
@@ -373,7 +370,7 @@ const handleLogout = () => {
   gap: 12px;
   flex: 0 0 auto;
   flex-shrink: 0;
-
+  
   .nav-item {
     display: flex;
     align-items: center;
@@ -387,17 +384,16 @@ const handleLogout = () => {
     font-weight: 500;
     position: relative;
     white-space: nowrap;
-
-    &:hover,
-    &.active {
+    
+    &:hover, &.active {
       color: var(--primary-color);
       background: var(--bg-primary);
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(249, 115, 22, 0.15);
     }
-
+    
     &.active::after {
-      content: "";
+      content: '';
       position: absolute;
       bottom: -2px;
       left: 50%;
@@ -407,11 +403,11 @@ const handleLogout = () => {
       background: var(--primary-color);
       border-radius: 2px;
     }
-
+    
     .nav-icon {
       font-size: 16px;
     }
-
+    
     .nav-text {
       font-weight: 500;
     }
@@ -421,23 +417,23 @@ const handleLogout = () => {
 // 下拉菜单
 .nav-dropdown {
   position: relative;
-
+  
   .dropdown-trigger {
     background: none;
     border: none;
     cursor: pointer;
     width: 100%;
-
+    
     .dropdown-arrow {
       font-size: 12px;
       transition: transform 0.3s ease;
-
+      
       &.rotated {
         transform: rotate(180deg);
       }
     }
   }
-
+  
   .dropdown-menu {
     position: absolute;
     top: calc(100% + 8px);
@@ -453,24 +449,24 @@ const handleLogout = () => {
     transition: all 0.3s ease;
     z-index: 1000;
     overflow: hidden;
-
+    
     &.show {
       opacity: 1;
       visibility: visible;
       transform: translateY(0);
     }
-
+    
     .dropdown-content {
       padding: 20px;
     }
-
+    
     .dropdown-section {
       margin-bottom: 16px;
-
+      
       &:last-child {
         margin-bottom: 0;
       }
-
+      
       .section-title {
         font-size: 12px;
         font-weight: 600;
@@ -480,12 +476,12 @@ const handleLogout = () => {
         margin: 0 0 12px 0;
       }
     }
-
+    
     .category-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 8px;
-
+      
       .category-item {
         display: flex;
         align-items: center;
@@ -495,25 +491,25 @@ const handleLogout = () => {
         color: #374151;
         border-radius: 8px;
         transition: all 0.2s ease;
-
+        
         &:hover {
           background: var(--bg-primary);
           color: var(--primary-color);
           transform: translateX(4px);
         }
-
+        
         .category-icon {
           font-size: 16px;
           color: var(--primary-color);
         }
       }
     }
-
+    
     .tag-list {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-
+      
       .tag-item {
         padding: 6px 12px;
         background: #f1f5f9;
@@ -522,14 +518,14 @@ const handleLogout = () => {
         border-radius: 20px;
         font-size: 12px;
         transition: all 0.2s ease;
-
+        
         &:hover {
           background: var(--primary-color);
           color: white;
         }
       }
     }
-
+    
     .dropdown-divider {
       height: 1px;
       background: #e2e8f0;
@@ -546,11 +542,11 @@ const handleLogout = () => {
   flex: 0 0 auto;
   flex-shrink: 0;
   visibility: visible;
-
-  .auth-section {
+  
+    .auth-section {
     display: flex;
     gap: 12px;
-
+    
     .auth-btn {
       display: flex;
       align-items: center;
@@ -561,21 +557,21 @@ const handleLogout = () => {
       font-size: 15px;
       font-weight: 500;
       transition: all 0.3s ease;
-
+      
       &.login-btn {
         color: #6b7280;
         background: #f8fafc;
-
+        
         &:hover {
           color: var(--primary-color);
           background: var(--bg-primary);
         }
       }
-
+      
       &.register-btn {
         color: white;
         background: var(--primary-color);
-
+        
         &:hover {
           background: var(--primary-dark);
           transform: translateY(-2px);
@@ -584,15 +580,15 @@ const handleLogout = () => {
       }
     }
   }
-
+  
   .user-section {
     display: flex;
     align-items: center;
     gap: 12px;
-
+    
     .notification-wrapper {
       position: relative;
-
+      
       .notification-btn {
         width: 40px;
         height: 40px;
@@ -605,19 +601,19 @@ const handleLogout = () => {
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
-
+        
         &:hover {
           background: var(--primary-color);
           color: white;
           transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
         }
-
+        
         i {
           font-size: 18px;
         }
       }
-
+      
       .notification-badge {
         position: absolute;
         top: -6px;
@@ -636,10 +632,10 @@ const handleLogout = () => {
         animation: pulse 2s infinite;
       }
     }
-
+    
     .user-menu {
       position: relative;
-
+      
       .user-trigger {
         display: flex;
         align-items: center;
@@ -650,11 +646,11 @@ const handleLogout = () => {
         cursor: pointer;
         border-radius: 12px;
         transition: all 0.3s ease;
-
+        
         &:hover {
           background: var(--bg-primary);
         }
-
+        
         .user-avatar {
           width: 36px;
           height: 36px;
@@ -662,37 +658,37 @@ const handleLogout = () => {
           object-fit: cover;
           border: 2px solid var(--primary-color);
         }
-
+        
         .user-info {
           display: flex;
           flex-direction: column;
           align-items: flex-start;
-
+          
           .username {
             font-size: 14px;
             font-weight: 600;
             color: #1f2937;
             line-height: 1.2;
           }
-
+          
           .user-level {
             font-size: 11px;
             color: var(--primary-color);
             font-weight: 500;
           }
         }
-
+        
         .user-arrow {
           font-size: 12px;
           color: #6b7280;
           transition: transform 0.3s ease;
-
+          
           &.rotated {
             transform: rotate(180deg);
           }
         }
       }
-
+      
       .user-dropdown {
         position: absolute;
         top: calc(100% + 8px);
@@ -708,23 +704,21 @@ const handleLogout = () => {
         transition: all 0.3s ease;
         z-index: 1000;
         overflow: hidden;
-
+        
         &.show {
           opacity: 1;
           visibility: visible;
           transform: translateY(0);
         }
-
+        
         .user-profile {
           padding: 20px;
-          background: linear-gradient(135deg,
-              var(--primary-color),
-              var(--secondary-color));
+          background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
           color: white;
           display: flex;
           align-items: center;
           gap: 15px;
-
+          
           .profile-avatar {
             width: 50px;
             height: 50px;
@@ -732,14 +726,14 @@ const handleLogout = () => {
             object-fit: cover;
             border: 3px solid rgba(255, 255, 255, 0.3);
           }
-
+          
           .profile-info {
             h4 {
               margin: 0 0 4px 0;
               font-size: 16px;
               font-weight: 600;
             }
-
+            
             p {
               margin: 0;
               font-size: 12px;
@@ -747,10 +741,10 @@ const handleLogout = () => {
             }
           }
         }
-
+        
         .user-menu-list {
           padding: 8px 0;
-
+          
           .menu-item {
             display: flex;
             align-items: center;
@@ -764,29 +758,29 @@ const handleLogout = () => {
             width: 100%;
             text-align: left;
             cursor: pointer;
-
+            
             &:hover {
               background: var(--bg-primary);
               color: var(--primary-color);
               transform: translateX(4px);
             }
-
+            
             &.logout-item {
               color: #ef4444;
-
+              
               &:hover {
                 background: #fef2f2;
                 color: #dc2626;
               }
             }
-
+            
             .menu-icon {
               font-size: 16px;
               width: 16px;
               text-align: center;
             }
           }
-
+          
           .menu-divider {
             height: 1px;
             background: #e2e8f0;
@@ -798,254 +792,16 @@ const handleLogout = () => {
   }
 }
 
-// 移动端菜单按钮
-.mobile-toggle {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
 
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    width: 24px;
-    height: 18px;
-
-    span {
-      width: 100%;
-      height: 2px;
-      background: #6b7280;
-      border-radius: 1px;
-      transition: all 0.3s ease;
-    }
-
-    &.active {
-      span:nth-child(1) {
-        transform: rotate(45deg) translate(6px, 6px);
-      }
-
-      span:nth-child(2) {
-        opacity: 0;
-      }
-
-      span:nth-child(3) {
-        transform: rotate(-45deg) translate(6px, -6px);
-      }
-    }
-  }
-}
-
-// 移动端菜单
-.mobile-menu {
-  position: fixed;
-  top: 70px;
-  left: 0;
-  right: 0;
-  background: white;
-  border-bottom: 1px solid rgba(249, 115, 22, 0.1);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
-  z-index: 999;
-
-  &.show {
-    transform: translateY(0);
-  }
-
-  .mobile-menu-content {
-    padding: 24px;
-
-    .mobile-search {
-      margin-bottom: 24px;
-
-      .mobile-search-input {
-        width: 100%;
-        padding: 12px 16px;
-        border: 2px solid #e2e8f0;
-        border-radius: 10px;
-        font-size: 16px;
-        outline: none;
-        transition: border-color 0.3s ease;
-
-        &:focus {
-          border-color: var(--primary-color);
-        }
-      }
-    }
-
-    .mobile-nav {
-      margin-bottom: 24px;
-
-      .mobile-nav-item {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 16px 0;
-        text-decoration: none;
-        color: #374151;
-        font-size: 16px;
-        font-weight: 500;
-        border-bottom: 1px solid #f1f5f9;
-
-        &:last-child {
-          border-bottom: none;
-        }
-
-        i {
-          font-size: 18px;
-          color: var(--primary-color);
-        }
-      }
-    }
-
-    .mobile-categories {
-      h4 {
-        margin: 0 0 16px 0;
-        color: #6b7280;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-      }
-
-      .mobile-category-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-
-        .mobile-category-item {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 8px;
-          padding: 16px 12px;
-          text-decoration: none;
-          color: #374151;
-          background: #f8fafc;
-          border-radius: 12px;
-          transition: all 0.3s ease;
-
-          &:hover {
-            background: var(--bg-primary);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-          }
-
-          i {
-            font-size: 24px;
-            color: var(--primary-color);
-          }
-
-          span {
-            font-size: 12px;
-            font-weight: 500;
-          }
-        }
-      }
-    }
-  }
-}
 
 // 动画
 @keyframes pulse {
-
-  0%,
-  100% {
+  0%, 100% {
     transform: scale(1);
   }
-
   50% {
     transform: scale(1.1);
   }
 }
 
-// 响应式设计 - 重点优化电脑端体验
-@media (max-width: 1200px) {
-  .navbar-container {
-    max-width: 100%;
-    padding: 0 20px;
-    gap: 24px;
-  }
-
-  .navbar-search {
-    max-width: 350px;
-  }
-}
-
-@media (max-width: 992px) {
-  .navbar-container {
-    gap: 20px;
-  }
-
-  .navbar-search {
-    max-width: 280px;
-  }
-
-  .navbar-menu .nav-item {
-    padding: 10px 12px;
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 768px) {
-  .navbar-container {
-    padding: 0 16px;
-    gap: 16px;
-  }
-
-  .navbar-search {
-    display: none;
-  }
-
-  .navbar-menu {
-    display: none;
-  }
-
-  .navbar-user .auth-section {
-    gap: 6px;
-
-    .auth-btn {
-      padding: 8px 12px;
-      font-size: 13px;
-    }
-  }
-
-  .mobile-toggle {
-    display: block;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar-container {
-    padding: 0 12px;
-  }
-
-  .navbar-brand .brand-link {
-    gap: 8px;
-
-    .brand-icon {
-      width: 36px;
-      height: 36px;
-
-      .icon-film {
-        font-size: 18px;
-      }
-    }
-
-    .brand-text .brand-name {
-      font-size: 18px;
-    }
-  }
-
-  .navbar-user .user-section .user-menu .user-trigger {
-    padding: 6px 8px;
-    gap: 8px;
-
-    .user-info {
-      display: none;
-    }
-  }
-}
 </style>
