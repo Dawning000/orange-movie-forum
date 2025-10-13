@@ -191,9 +191,11 @@ const user = computed(() => userStore.user)
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
     router.push({
-      name: 'Forum',
-      query: { search: searchQuery.value }
+      name: 'Search',
+      query: { q: searchQuery.value }
     })
+  } else {
+    router.push({ name: 'Search' })
   }
 }
 

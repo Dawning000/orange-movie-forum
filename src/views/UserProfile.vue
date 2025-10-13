@@ -170,6 +170,31 @@
               </div>
             </div>
           </div>
+
+          <!-- 片单 -->
+          <div v-if="activeTab === 'lists'" class="lists-section">
+            <div class="list-actions">
+              <button class="btn btn-primary" @click="createList">新建片单</button>
+            </div>
+            <div v-if="Object.keys(library.lists).length === 0" class="empty-state">
+              <i class="icon-list"></i>
+              <h3>暂无片单</h3>
+              <p>创建你的第一个片单，整理想看与看过的影片</p>
+            </div>
+            <div v-else class="lists-grid">
+              <div class="list-card" v-for="ls in Object.values(library.lists)" :key="ls.id">
+                <div class="list-cover"></div>
+                <div class="list-meta">
+                  <h3>{{ ls.title }}</h3>
+                  <p class="sub">{{ ls.itemIds.length }} 部作品 · {{ ls.isPublic ? '公开' : '私密' }}</p>
+                </div>
+                <div class="list-actions-row">
+                  <router-link class="btn btn-outline btn-sm" :to="{name:'ListShare', params:{id: ls.id}}">查看/分享</router-link>
+                  <button class="btn btn-outline btn-sm" @click="togglePrivacy(ls.id)">{{ ls.isPublic ? '设为私密' : '设为公开' }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -239,8 +264,10 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { useLibraryStore } from '@/stores/library'
 
 const route = useRoute()
+const library = useLibraryStore()
 
 // 响应式数据
 const loading = ref(true)
@@ -264,7 +291,8 @@ const editForm = reactive({
 const tabs = [
   { id: 'posts', label: '帖子', icon: 'icon-edit' },
   { id: 'bookmarks', label: '收藏', icon: 'icon-bookmark' },
-  { id: 'following', label: '关注', icon: 'icon-users' }
+  { id: 'following', label: '关注', icon: 'icon-users' },
+  { id: 'lists', label: '片单', icon: 'icon-list' }
 ]
 
 // 方法
@@ -420,6 +448,17 @@ const handleUpdateProfile = async () => {
 onMounted(() => {
   loadUserProfile()
 })
+
+function createList(){
+  const id = 'list-' + Date.now()
+  library.ensureList(id, '我的片单')
+}
+
+function togglePrivacy(id){
+  const ls = library.lists[id]
+  if (!ls) return
+  ls.isPublic = !ls.isPublic
+}
 </script>
 
 <style lang="scss" scoped>
@@ -624,6 +663,13 @@ onMounted(() => {
   padding: 30px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
+.lists-grid{ display:grid; grid-template-columns: repeat(2,1fr); gap:16px; }
+.list-card{ border:1px solid #e5e7eb; border-radius:12px; overflow:hidden; background:#fff; }
+.list-cover{ height:120px; background:#f3f4f6; }
+.list-meta{ padding:12px; }
+.list-meta .sub{ color:#6b7280; font-size:12px; }
+.list-actions-row{ display:flex; gap:8px; padding:0 12px 12px; }
 
 // 帖子列表
 .posts-list {

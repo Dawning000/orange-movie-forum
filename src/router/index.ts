@@ -7,12 +7,26 @@ import PostDetail from '../views/PostDetail.vue'
 import UserProfile from '../views/UserProfile.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Test from '../views/Test.vue'
+import Search from '../views/Search.vue'
+import ListShare from '../views/ListShare.vue'
 
 const routes: AppRouteRecord[] = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/list/:id',
+    name: 'ListShare',
+    component: ListShare,
+    props: true
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
   },
   {
     path: '/forum',
@@ -46,6 +60,11 @@ const routes: AppRouteRecord[] = [
     path: '/register',
     name: 'Register',
     component: Register
+  },
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test
   }
 ]
 
