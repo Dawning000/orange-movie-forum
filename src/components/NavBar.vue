@@ -131,7 +131,7 @@
                 <img :src="user.avatar" :alt="user.username" class="profile-avatar" />
                 <div class="profile-info">
                   <h4>{{ user.username }}</h4>
-                  <p>{{ user.nickname }}</p>
+                  <!-- <p>{{ user.nickname }}</p> -->
                 </div>
               </div>
               <div class="user-menu-list">
