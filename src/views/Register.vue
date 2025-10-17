@@ -291,7 +291,7 @@ const handleRegister = async () => {
 <style lang="scss" scoped>
 .register-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary-color) 40%, var(--primary-light) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -314,9 +314,7 @@ const handleRegister = async () => {
   padding: 50px 40px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  max-height: 700px;
-  overflow-y: auto;
+  justify-content: flex-start;
 }
 
 .form-header {
@@ -357,15 +355,15 @@ const handleRegister = async () => {
 .form-input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.2s;
   
   &:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--shadow-color);
   }
   
   &.error {
@@ -416,12 +414,12 @@ const handleRegister = async () => {
   align-items: center;
   cursor: pointer;
   padding: 8px 12px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   transition: all 0.2s;
   
   &:hover {
-    border-color: #d1d5db;
+    border-color: var(--secondary-dark);
   }
   
   input[type="checkbox"] {
@@ -429,18 +427,18 @@ const handleRegister = async () => {
   }
   
   input[type="checkbox"]:checked + .interest-label {
-    color: #3b82f6;
+    color: var(--primary-color);
     font-weight: 500;
   }
   
   input[type="checkbox"]:checked ~ .interest-label {
-    color: #3b82f6;
+    color: var(--primary-color);
     font-weight: 500;
   }
   
   &:has(input:checked) {
-    border-color: #3b82f6;
-    background: #eff6ff;
+    border-color: var(--primary-color);
+    background: #fff7ed;
   }
 }
 
@@ -469,7 +467,7 @@ const handleRegister = async () => {
   .checkmark {
     width: 18px;
     height: 18px;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--secondary-light);
     border-radius: 4px;
     margin-right: 8px;
     margin-top: 2px;
@@ -493,8 +491,8 @@ const handleRegister = async () => {
   }
   
   input[type="checkbox"]:checked + .checkmark {
-    background: #3b82f6;
-    border-color: #3b82f6;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
     
     &::after {
       opacity: 1;
@@ -502,11 +500,11 @@ const handleRegister = async () => {
   }
   
   .terms-link {
-    color: #3b82f6;
+    color: var(--primary-color);
     text-decoration: none;
     
     &:hover {
-      color: #2563eb;
+      color: var(--primary-dark);
     }
   }
 }
@@ -514,7 +512,7 @@ const handleRegister = async () => {
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background: #3b82f6;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 8px;
@@ -529,7 +527,7 @@ const handleRegister = async () => {
   margin-bottom: 30px;
   
   &:hover:not(:disabled) {
-    background: #2563eb;
+    background: var(--primary-dark);
     transform: translateY(-1px);
   }
   
@@ -587,7 +585,7 @@ const handleRegister = async () => {
     left: 0;
     right: 0;
     height: 1px;
-    background: #e5e7eb;
+    background: var(--secondary-light);
   }
   
   span {
@@ -606,7 +604,7 @@ const handleRegister = async () => {
 .social-btn {
   flex: 1;
   padding: 12px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   background: white;
   border-radius: 8px;
   cursor: pointer;
@@ -619,7 +617,7 @@ const handleRegister = async () => {
   font-weight: 500;
   
   &:hover {
-    border-color: #d1d5db;
+    border-color: var(--secondary-dark);
     transform: translateY(-1px);
   }
   
@@ -643,7 +641,7 @@ const handleRegister = async () => {
 }
 
 .register-image {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
   color: white;
   padding: 50px 40px;
   display: flex;

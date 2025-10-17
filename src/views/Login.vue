@@ -164,7 +164,7 @@ const handleLogin = async () => {
 <style lang="scss" scoped>
 .login-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--secondary-light) 0%, var(--secondary-color) 40%, var(--primary-light) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,15 +222,15 @@ const handleLogin = async () => {
 .form-input {
   width: 100%;
   padding: 12px 16px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.2s;
   
   &:focus {
     outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--shadow-color);
   }
   
   &.error {
@@ -290,7 +290,7 @@ const handleLogin = async () => {
   .checkmark {
     width: 18px;
     height: 18px;
-    border: 2px solid #d1d5db;
+    border: 2px solid var(--secondary-light);
     border-radius: 4px;
     margin-right: 8px;
     position: relative;
@@ -312,8 +312,8 @@ const handleLogin = async () => {
   }
   
   input[type="checkbox"]:checked + .checkmark {
-    background: #3b82f6;
-    border-color: #3b82f6;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
     
     &::after {
       opacity: 1;
@@ -322,19 +322,19 @@ const handleLogin = async () => {
 }
 
 .forgot-link {
-  color: #3b82f6;
+  color: var(--primary-color);
   text-decoration: none;
   font-size: 14px;
   
   &:hover {
-    color: #2563eb;
+    color: var(--primary-dark);
   }
 }
 
 .submit-btn {
   width: 100%;
   padding: 14px;
-  background: #3b82f6;
+  background: var(--primary-color);
   color: white;
   border: none;
   border-radius: 8px;
@@ -348,7 +348,7 @@ const handleLogin = async () => {
   gap: 10px;
   
   &:hover:not(:disabled) {
-    background: #2563eb;
+    background: var(--primary-dark);
     transform: translateY(-1px);
   }
   
@@ -406,7 +406,7 @@ const handleLogin = async () => {
     left: 0;
     right: 0;
     height: 1px;
-    background: #e5e7eb;
+    background: var(--secondary-light);
   }
   
   span {
@@ -425,7 +425,7 @@ const handleLogin = async () => {
 .social-btn {
   flex: 1;
   padding: 12px;
-  border: 2px solid #e5e7eb;
+  border: 2px solid var(--border-color);
   background: white;
   border-radius: 8px;
   cursor: pointer;
@@ -438,7 +438,7 @@ const handleLogin = async () => {
   font-weight: 500;
   
   &:hover {
-    border-color: #d1d5db;
+    border-color: var(--secondary-dark);
     transform: translateY(-1px);
   }
   
@@ -462,7 +462,7 @@ const handleLogin = async () => {
 }
 
 .login-image {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
   color: white;
   padding: 50px 40px;
   display: flex;
