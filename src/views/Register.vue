@@ -280,11 +280,15 @@ const handleRegister = async () => {
         favors: form.interests
       })
     })
-    console.log(result);
-    
+    const message = await result.json();
+    console.log(message);
+    if(message.code===500){
+      errors.value.username = '用户名已被使用'
+    }
 
 
-    if (result.success) {
+
+    if (message.code === 200) {
       // 注册成功，跳转到首页
       router.push('/')
     } else {
@@ -296,6 +300,10 @@ const handleRegister = async () => {
     loading.value = false
   }
 }
+
+
+
+
 </script>
 
 <style lang="scss" scoped>

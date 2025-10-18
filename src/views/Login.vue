@@ -6,41 +6,27 @@
           <h1>欢迎回来</h1>
           <p>登录到影视论坛，继续你的观影之旅</p>
         </div>
-        
+
         <form @submit.prevent="handleLogin">
           <div class="form-group">
             <label for="username">用户名或邮箱</label>
-            <input 
-              type="text" 
-              id="username"
-              v-model="form.username"
-              placeholder="请输入用户名或邮箱"
-              required
-              class="form-input"
-              :class="{ error: errors.username }"
-            >
+            <input type="text" id="username" v-model="form.username" placeholder="请输入用户名或邮箱" required class="form-input"
+              :class="{ error: errors.username }">
             <span v-if="errors.username" class="error-message">{{ errors.username }}</span>
           </div>
-          
+
           <div class="form-group">
             <label for="password">密码</label>
             <div class="password-input">
-              <input 
-                :type="showPassword ? 'text' : 'password'"
-                id="password"
-                v-model="form.password"
-                placeholder="请输入密码"
-                required
-                class="form-input"
-                :class="{ error: errors.password }"
-              >
+              <input :type="showPassword ? 'text' : 'password'" id="password" v-model="form.password"
+                placeholder="请输入密码" required class="form-input" :class="{ error: errors.password }">
               <button type="button" class="password-toggle" @click="showPassword = !showPassword">
                 <i :class="showPassword ? 'icon-eye-off' : 'icon-eye'"></i>
               </button>
             </div>
             <span v-if="errors.password" class="error-message">{{ errors.password }}</span>
           </div>
-          
+
           <div class="form-options">
             <label class="checkbox-label">
               <input type="checkbox" v-model="form.remember">
@@ -49,21 +35,21 @@
             </label>
             <a href="#" class="forgot-link">忘记密码？</a>
           </div>
-          
+
           <button type="submit" class="submit-btn" :disabled="loading">
             <div v-if="loading" class="loading-spinner"></div>
             {{ loading ? '登录中...' : '登录' }}
           </button>
         </form>
-        
+
         <div class="form-footer">
           <p>还没有账号？ <router-link to="/register" class="link">立即注册</router-link></p>
         </div>
-        
+
         <div class="divider">
           <span>或者</span>
         </div>
-        
+
         <div class="social-login">
           <button class="social-btn wechat">
             <i class="icon-wechat"></i>
@@ -75,7 +61,7 @@
           </button>
         </div>
       </div>
-      
+
       <div class="login-image">
         <div class="image-content">
           <h2>发现精彩影视世界</h2>
@@ -122,38 +108,49 @@ const form = reactive({
 // 方法
 const validateForm = () => {
   errors.value = {}
-  
+
   if (!form.username.trim()) {
     errors.value.username = '请输入用户名或邮箱'
   }
-  
+
   if (!form.password) {
     errors.value.password = '请输入密码'
   } else if (form.password.length < 6) {
     errors.value.password = '密码长度至少6位'
   }
-  
+
   return Object.keys(errors.value).length === 0
 }
 
+
 const handleLogin = async () => {
   if (!validateForm()) return
-  
+
   loading.value = true
   try {
-    const result = await userStore.login({
-      username: form.username,
-      password: form.password
+
+    const formData = new FormData();
+    formData.append('username', form.username);
+    formData.append('password', form.password);
+    formData.append('remember-me', form.remember ? '1' : '0'); 
+    
+    const response = await fetch(`https://filmforum.billadom.top/api/user/login`, {
+      method: 'POST',
+      body: formData
     })
     
-    if (result.success) {
-      // 登录成功，跳转到首页或之前访问的页面
+    const data = await response.json();
+    console.log('登录响应:', data)
+
+
+    if (response.ok && data.code === 200) {
       const redirect = router.currentRoute.value.query.redirect || '/'
       router.push(redirect)
     } else {
-      errors.value.general = result.message || '登录失败，请检查用户名和密码'
+      errors.value.general = data.message || '登录失败，请检查用户名和密码'
     }
   } catch (error) {
+    console.error('登录错误:', error);
     errors.value.general = '登录失败，请稍后重试'
   } finally {
     loading.value = false
@@ -193,14 +190,14 @@ const handleLogin = async () => {
 .form-header {
   text-align: center;
   margin-bottom: 40px;
-  
+
   h1 {
     font-size: 2rem;
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 10px;
   }
-  
+
   p {
     color: #6b7280;
     font-size: 1rem;
@@ -209,7 +206,7 @@ const handleLogin = async () => {
 
 .form-group {
   margin-bottom: 25px;
-  
+
   label {
     display: block;
     font-weight: 500;
@@ -226,16 +223,16 @@ const handleLogin = async () => {
   border-radius: 8px;
   font-size: 16px;
   transition: all 0.2s;
-  
+
   &:focus {
     outline: none;
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px var(--shadow-color);
   }
-  
+
   &.error {
     border-color: #ef4444;
-    
+
     &:focus {
       box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
     }
@@ -244,7 +241,7 @@ const handleLogin = async () => {
 
 .password-input {
   position: relative;
-  
+
   .password-toggle {
     position: absolute;
     right: 12px;
@@ -255,7 +252,7 @@ const handleLogin = async () => {
     color: #9ca3af;
     cursor: pointer;
     padding: 4px;
-    
+
     &:hover {
       color: #6b7280;
     }
@@ -282,11 +279,11 @@ const handleLogin = async () => {
   cursor: pointer;
   font-size: 14px;
   color: #6b7280;
-  
+
   input[type="checkbox"] {
     display: none;
   }
-  
+
   .checkmark {
     width: 18px;
     height: 18px;
@@ -295,7 +292,7 @@ const handleLogin = async () => {
     margin-right: 8px;
     position: relative;
     transition: all 0.2s;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -310,11 +307,11 @@ const handleLogin = async () => {
       transition: opacity 0.2s;
     }
   }
-  
-  input[type="checkbox"]:checked + .checkmark {
+
+  input[type="checkbox"]:checked+.checkmark {
     background: var(--primary-color);
     border-color: var(--primary-color);
-    
+
     &::after {
       opacity: 1;
     }
@@ -325,7 +322,7 @@ const handleLogin = async () => {
   color: var(--primary-color);
   text-decoration: none;
   font-size: 14px;
-  
+
   &:hover {
     color: var(--primary-dark);
   }
@@ -346,12 +343,12 @@ const handleLogin = async () => {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  
+
   &:hover:not(:disabled) {
     background: var(--primary-dark);
     transform: translateY(-1px);
   }
-  
+
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
@@ -369,25 +366,30 @@ const handleLogin = async () => {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .form-footer {
   text-align: center;
   margin: 30px 0;
-  
+
   p {
     color: #6b7280;
     font-size: 14px;
     margin: 0;
   }
-  
+
   .link {
     color: #3b82f6;
     text-decoration: none;
     font-weight: 500;
-    
+
     &:hover {
       color: #2563eb;
     }
@@ -398,7 +400,7 @@ const handleLogin = async () => {
   text-align: center;
   margin: 30px 0;
   position: relative;
-  
+
   &::before {
     content: '';
     position: absolute;
@@ -408,7 +410,7 @@ const handleLogin = async () => {
     height: 1px;
     background: var(--secondary-light);
   }
-  
+
   span {
     background: white;
     padding: 0 20px;
@@ -436,24 +438,24 @@ const handleLogin = async () => {
   gap: 8px;
   font-size: 14px;
   font-weight: 500;
-  
+
   &:hover {
     border-color: var(--secondary-dark);
     transform: translateY(-1px);
   }
-  
+
   &.wechat {
     color: #1aad19;
-    
+
     &:hover {
       border-color: #1aad19;
       background: #f0f9f0;
     }
   }
-  
+
   &.qq {
     color: #12b7f5;
-    
+
     &:hover {
       border-color: #12b7f5;
       background: #f0f9ff;
@@ -472,14 +474,14 @@ const handleLogin = async () => {
 
 .image-content {
   text-align: center;
-  
+
   h2 {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: 20px;
     line-height: 1.2;
   }
-  
+
   p {
     font-size: 1.1rem;
     margin-bottom: 40px;
@@ -499,7 +501,7 @@ const handleLogin = async () => {
   align-items: center;
   gap: 15px;
   font-size: 1rem;
-  
+
   i {
     font-size: 1.5rem;
     color: rgba(255, 255, 255, 0.8);
@@ -512,19 +514,19 @@ const handleLogin = async () => {
     grid-template-columns: 1fr;
     max-width: 400px;
   }
-  
+
   .login-image {
     display: none;
   }
-  
+
   .login-form {
     padding: 40px 30px;
   }
-  
+
   .form-header h1 {
     font-size: 1.75rem;
   }
-  
+
   .social-login {
     flex-direction: column;
   }
@@ -534,11 +536,11 @@ const handleLogin = async () => {
   .login-page {
     padding: 10px;
   }
-  
+
   .login-form {
     padding: 30px 20px;
   }
-  
+
   .form-header h1 {
     font-size: 1.5rem;
   }
