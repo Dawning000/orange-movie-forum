@@ -266,14 +266,24 @@ const handleRegister = async () => {
   
   loading.value = true
   try {
-    const result = await userStore.register({
-      username: form.username,
-      nickname: form.nickname || form.username,
-      email: form.email,
-      password: form.password,
-      interests: form.interests
+    console.log('开始注册',form);
+    const result = await fetch(`https://filmforum.billadom.top/api/user/register`,{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: form.username,
+        nickname: form.nickname || form.username,
+        email: form.email,
+        password: form.password,
+        favors: form.interests
+      })
     })
+    console.log(result);
     
+
+
     if (result.success) {
       // 注册成功，跳转到首页
       router.push('/')
